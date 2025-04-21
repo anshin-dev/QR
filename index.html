@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>هورزاد استودیو</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      direction: rtl;
+    }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 30px rgba(0, 255, 150, 0.2);
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h1 {
+      color: #00ffa2;
+      margin-bottom: 1rem;
+      font-size: 1.8rem;
+    }
+
+    .info {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+      line-height: 2;
+    }
+
+    a {
+      color: #00ffc8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: #fff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>ارتباط با من</h1>
+    <div class="info">
+      <p id="phone">شماره تماس: در حال بارگذاری...</p>
+      <p id="instagram">اینستاگرام: ...</p>
+      <p id="whatsapp">واتساپ: ...</p>
+    </div>
+  </div>
+
+  <script>
+    fetch('data.json')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('phone').innerHTML = `📞 شماره تماس: <a href="tel:${data.phone}">${data.phone}</a>`;
+        document.getElementById('instagram').innerHTML = `📷 اینستاگرام: <a href="${data.instagram}" target="_blank">${data.instagram}</a>`;
+        document.getElementById('whatsapp').innerHTML = `💬 واتساپ: <a href="${data.whatsapp}" target="_blank">${data.whatsapp}</a>`;
+      })
+      .catch(() => {
+        document.querySelector('.info').innerText = 'مشکلی در بارگذاری اطلاعات پیش آمده.';
+      });
+  </script>
+</body>
+</html>
