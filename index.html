@@ -82,12 +82,44 @@
     a:hover {
       color: #fff4dc;
     }
+
+    .scroll-icon {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      opacity: 0.9;
+      cursor: pointer;
+    }
+
+    .scroll-icon svg {
+      transition: box-shadow 0.3s ease;
+    }
+
+    .scroll-icon:hover svg {
+      box-shadow: 0 0 15px 5px rgba(200, 162, 87, 0.7);
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translate(-50%, 0);
+      }
+      50% {
+        transform: translate(-50%, 15px);
+      }
+    }
   </style>
 </head>
 <body>
 
   <section class="hero">
     <img src="logo.png" alt="لوگو" class="hero-logo" id="heroLogo" />
+    <div class="scroll-icon" onclick="scrollToContent()" aria-label="اسکرول برای دیدن اطلاعات">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="#c8a257" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 16L6 10H18L12 16Z" />
+      </svg>
+    </div>
   </section>
 
   <section class="content">
@@ -118,6 +150,11 @@
         card.classList.add('visible');
       }
     });
+
+    // Scroll to content function
+    function scrollToContent() {
+      document.querySelector('.content').scrollIntoView({ behavior: 'smooth' });
+    }
   </script>
 
 </body>
