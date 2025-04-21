@@ -23,6 +23,24 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      position: relative;
+      text-align: center;
+    }
+
+    .logo {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      max-width: 100px;
+      mix-blend-mode: lighten;
+      filter: drop-shadow(0 0 8px #c8a257aa) blur(0.3px);
+      opacity: 0.92;
+      transition: all 0.3s ease-in-out;
     }
 
     .card {
@@ -30,9 +48,9 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(12px);
       border-radius: 20px;
-      padding: 2.5rem;
-      max-width: 420px;
+      padding: 2rem 1.5rem 1.7rem;
       width: 90%;
+      max-width: 400px;
       text-align: center;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
       animation: slideUp 1s ease-out forwards;
@@ -47,24 +65,15 @@
       }
     }
 
-    .logo {
-      max-width: 110px;
-      margin-bottom: 1.7rem;
-      mix-blend-mode: lighten;
-      filter: drop-shadow(0 0 8px #c8a257aa) blur(0.3px);
-      opacity: 0.92;
-      transition: all 0.3s ease-in-out;
-    }
-
     h1 {
-      font-size: 1.9rem;
-      margin-bottom: 1.3rem;
+      font-size: 1.7rem;
+      margin-bottom: 1.1rem;
       color: #c8a257;
     }
 
     .info p {
-      font-size: 1.1rem;
-      margin: 0.6rem 0;
+      font-size: 1.05rem;
+      margin: 0.5rem 0;
     }
 
     a {
@@ -80,13 +89,15 @@
   </style>
 </head>
 <body>
-  <div class="card">
+  <div class="container">
     <img src="logo.png" alt="لوگو" class="logo" />
-    <h1>ارتباط با هورزاد</h1>
-    <div class="info">
-      <p id="phone">📞 شماره تماس: در حال بارگذاری...</p>
-      <p id="instagram">📷 اینستاگرام: در حال بارگذاری...</p>
-      <p id="whatsapp">💬 واتساپ: در حال بارگذاری...</p>
+    <div class="card">
+      <h1>ارتباط با هورزاد</h1>
+      <div class="info">
+        <p id="phone">📞 شماره تماس: در حال بارگذاری...</p>
+        <p id="instagram">📷 اینستاگرام: در حال بارگذاری...</p>
+        <p id="whatsapp">💬 واتساپ: در حال بارگذاری...</p>
+      </div>
     </div>
   </div>
 
