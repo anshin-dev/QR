@@ -2,12 +2,11 @@
 <html lang="fa">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ارتباط با هورزاد</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap');
-
     * {
       margin: 0;
       padding: 0;
@@ -19,28 +18,45 @@
       font-family: 'Vazirmatn', sans-serif;
       background-color: #042721;
       color: #c8a257;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       overflow-x: hidden;
     }
 
-    .container {
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       position: relative;
-      text-align: center;
+      overflow: hidden;
     }
 
-    .logo {
-      position: absolute;
-      top: -60px;
-      left: 50%;
-      transform: translateX(-50%);
-      max-width: 100px;
+    .hero-logo {
+      width: 200px;
+      max-width: 70vw;
+      transition: transform 0.5s ease;
       mix-blend-mode: lighten;
-      filter: drop-shadow(0 0 8px #c8a257aa) blur(0.3px);
-      opacity: 0.92;
-      transition: all 0.3s ease-in-out;
+      filter: drop-shadow(0 0 20px #c8a25788);
+    }
+
+    .scroll-indicator {
+      margin-top: 2rem;
+      font-size: 1.1rem;
+      opacity: 0.8;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    .content {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
     }
 
     .card {
@@ -48,39 +64,34 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(12px);
       border-radius: 20px;
-      padding: 2rem 1.5rem 1.7rem;
-      width: 90%;
+      padding: 2rem;
       max-width: 400px;
+      width: 100%;
       text-align: center;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-      animation: slideUp 1s ease-out forwards;
+      transform: translateY(30px);
       opacity: 0;
-      transform: translateY(60px);
+      transition: all 0.8s ease-out;
     }
 
-    @keyframes slideUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    h1 {
-      font-size: 1.7rem;
-      margin-bottom: 1.1rem;
+    .card h1 {
+      margin-bottom: 1rem;
       color: #c8a257;
     }
 
-    .info p {
-      font-size: 1.05rem;
+    .card p {
       margin: 0.5rem 0;
+      font-size: 1.05rem;
     }
 
     a {
       color: #c8a257;
       text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease;
     }
 
     a:hover {
@@ -89,30 +100,46 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <img src="logo.png" alt="لوگو" class="logo" />
-    <div class="card">
+
+  <section class="hero">
+    <img src="logo.png" alt="لوگو" class="hero-logo" id="heroLogo" />
+    <div class="scroll-indicator">برای مشاهده اطلاعات بیشتر لطفا اسکرول کنید ⬇️</div>
+  </section>
+
+  <section class="content">
+    <div class="card" id="infoCard">
       <h1>ارتباط با هورزاد</h1>
-      <div class="info">
-        <p id="phone">📞 شماره تماس: در حال بارگذاری...</p>
-        <p id="instagram">📷 اینستاگرام: در حال بارگذاری...</p>
-        <p id="whatsapp">💬 واتساپ: در حال بارگذاری...</p>
-      </div>
+      <p id="phone">📞 شماره تماس: در حال بارگذاری...</p>
+      <p id="instagram">📷 اینستاگرام: در حال بارگذاری...</p>
+      <p id="whatsapp">💬 واتساپ: در حال بارگذاری...</p>
     </div>
-  </div>
+  </section>
 
   <script>
+    // Load contact data
     fetch('data.json')
       .then(res => res.json())
       .then(data => {
         document.getElementById('phone').innerHTML = `📞 شماره تماس: <a href="tel:${data.phone}">${data.phone}</a>`;
         document.getElementById('instagram').innerHTML = `📷 اینستاگرام: <a href="${data.instagram}" target="_blank">${data.instagram}</a>`;
         document.getElementById('whatsapp').innerHTML = `💬 واتساپ: <a href="${data.whatsapp}" target="_blank">${data.whatsapp}</a>`;
-      })
-      .catch(err => {
-        document.querySelector('.info').innerHTML = '<p style="color:red;">⛔ اطلاعات لود نشد!</p>';
-        console.error('Error loading data.json:', err);
       });
+
+    // Parallax scroll effect
+    window.addEventListener('scroll', () => {
+      const logo = document.getElementById('heroLogo');
+      const scrollY = window.scrollY;
+
+      logo.style.transform = `scale(${1 - scrollY / 1000}) translateY(${scrollY / 10}px)`;
+
+      const card = document.getElementById('infoCard');
+      const cardPosition = card.getBoundingClientRect().top;
+
+      if (cardPosition < window.innerHeight - 100) {
+        card.classList.add('visible');
+      }
+    });
   </script>
+
 </body>
 </html>
