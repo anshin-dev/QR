@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ارتباط با هورزاد</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">
   <style>
     * {
@@ -24,35 +23,21 @@
     .hero {
       height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       position: relative;
-      overflow: hidden;
     }
 
     .hero-logo {
-      width: 200px;
-      max-width: 70vw;
-      transition: transform 0.5s ease;
+      width: 220px;
+      max-width: 80vw;
       mix-blend-mode: lighten;
-      filter: drop-shadow(0 0 20px #c8a25788);
-    }
-
-    .scroll-indicator {
-      margin-top: 2rem;
-      font-size: 1.1rem;
-      opacity: 0.8;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
+      filter: drop-shadow(0 0 25px #c8a25788);
+      transition: transform 0.5s ease;
     }
 
     .content {
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -69,9 +54,9 @@
       width: 100%;
       text-align: center;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-      transform: translateY(30px);
+      transform: translateY(50px);
       opacity: 0;
-      transition: all 0.8s ease-out;
+      transition: all 1s ease;
     }
 
     .card.visible {
@@ -103,7 +88,6 @@
 
   <section class="hero">
     <img src="logo.png" alt="لوگو" class="hero-logo" id="heroLogo" />
-    <div class="scroll-indicator">برای مشاهده اطلاعات بیشتر لطفا اسکرول کنید ⬇️</div>
   </section>
 
   <section class="content">
@@ -125,17 +109,12 @@
         document.getElementById('whatsapp').innerHTML = `💬 واتساپ: <a href="${data.whatsapp}" target="_blank">${data.whatsapp}</a>`;
       });
 
-    // Parallax scroll effect
+    // Reveal card on scroll
     window.addEventListener('scroll', () => {
-      const logo = document.getElementById('heroLogo');
-      const scrollY = window.scrollY;
-
-      logo.style.transform = `scale(${1 - scrollY / 1000}) translateY(${scrollY / 10}px)`;
-
       const card = document.getElementById('infoCard');
-      const cardPosition = card.getBoundingClientRect().top;
+      const position = card.getBoundingClientRect().top;
 
-      if (cardPosition < window.innerHeight - 100) {
+      if (position < window.innerHeight - 100) {
         card.classList.add('visible');
       }
     });
