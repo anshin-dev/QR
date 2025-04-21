@@ -17,13 +17,12 @@
 
     body {
       font-family: 'Vazirmatn', sans-serif;
-      background-color: #042721; /* رنگ پس‌زمینه اصلی */
-      color: #c8a257; /* رنگ متن طلایی */
+      background-color: #042721;
+      color: #c8a257;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      padding: 2rem;
+      height: 100vh;
     }
 
     .card {
@@ -33,18 +32,18 @@
       border-radius: 20px;
       padding: 2rem;
       max-width: 400px;
-      width: 100%;
+      width: 90%;
       text-align: center;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-      animation: floatUp 1s ease-out forwards;
-      transform: translateY(100px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 1s ease-out forwards;
       opacity: 0;
+      transform: translateY(50px);
     }
 
-    @keyframes floatUp {
+    @keyframes fadeIn {
       to {
-        transform: translateY(0);
         opacity: 1;
+        transform: translateY(0);
       }
     }
 
@@ -55,36 +54,35 @@
 
     h1 {
       font-size: 1.8rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
       color: #c8a257;
     }
 
-    .info {
+    .info p {
       font-size: 1.1rem;
-      line-height: 2;
+      margin: 0.5rem 0;
     }
 
     a {
       color: #c8a257;
       text-decoration: none;
-      transition: color 0.3s ease, transform 0.2s ease;
       font-weight: bold;
+      transition: color 0.3s ease;
     }
 
     a:hover {
       color: #fff3dc;
-      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
   <div class="card">
-    <img src="logo.png" alt="لوگو هورزاد" class="logo" />
+    <img src="logo.png" alt="لوگو" class="logo" />
     <h1>ارتباط با هورزاد</h1>
     <div class="info">
       <p id="phone">📞 شماره تماس: در حال بارگذاری...</p>
-      <p id="instagram">📷 اینستاگرام: ...</p>
-      <p id="whatsapp">💬 واتساپ: ...</p>
+      <p id="instagram">📷 اینستاگرام: در حال بارگذاری...</p>
+      <p id="whatsapp">💬 واتساپ: در حال بارگذاری...</p>
     </div>
   </div>
 
@@ -96,8 +94,9 @@
         document.getElementById('instagram').innerHTML = `📷 اینستاگرام: <a href="${data.instagram}" target="_blank">${data.instagram}</a>`;
         document.getElementById('whatsapp').innerHTML = `💬 واتساپ: <a href="${data.whatsapp}" target="_blank">${data.whatsapp}</a>`;
       })
-      .catch(() => {
-        document.querySelector('.info').innerText = 'مشکلی در بارگذاری اطلاعات پیش آمده.';
+      .catch(err => {
+        document.querySelector('.info').innerHTML = '<p style="color:red;">⛔ اطلاعات لود نشد!</p>';
+        console.error('Error loading data.json:', err);
       });
   </script>
 </body>
